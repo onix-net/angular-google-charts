@@ -13,6 +13,9 @@ jobs:
           keys:
             - node-{{ checksum "package-lock.json" }}
       - run: npm install
+      - run: npm install -g --prefix=/home/circleci @angular/cli
+      - run: echo 'export PATH=/home/circleci/bin:${PATH}' >> $BASH_ENV
+      - run: echo $PATH && tree $HOME && which ng
       - save_cache:
           key: node-{{ checksum "package-lock.json" }}
           paths:
@@ -29,6 +32,7 @@ jobs:
       - restore_cache:
           keys:
             - node-{{ checksum "package-lock.json" }}
+      - run: echo 'export PATH=bin:${PATH}' >> $BASH_ENV
       - run:
           name: Run tests
           command: npm run test -- --ci --coverage --reporters default --reporters jest-junit
