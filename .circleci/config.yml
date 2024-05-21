@@ -4,13 +4,13 @@ jobs:
   install:
     working_directory: ~/angular-google-charts
     docker:
-      - image: node:16.10
+      - image: node:20.13
     steps:
       - checkout
       - restore_cache:
           keys:
             - node-{{ checksum "package-lock.json" }}
-      - run: npm install
+      - run: npm install --with=dev
       - save_cache:
           key: node-{{ checksum "package-lock.json" }}
           paths:
@@ -21,12 +21,14 @@ jobs:
   test:
     working_directory: ~/angular-google-charts
     docker:
-      - image: node:16.10
+      - image: node:20.13
     steps:
       - checkout
       - restore_cache:
           keys:
             - node-{{ checksum "package-lock.json" }}
+      # - run: echo 'export PATH=$(npm bin):$PATH' >> $BASH_ENV
+      # - run: echo $PATH
       - run:
           name: Run tests
           command: npm run test -- --ci --coverage --reporters default --reporters jest-junit
@@ -35,24 +37,25 @@ jobs:
       - store_artifacts:
           path: coverage
 
-  deploy:
-    working_directory: ~/angular-google-charts
-    docker:
-      - image: node:16.10
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - node-{{ checksum "package-lock.json" }}
-      - run:
-          name: Build
-          command: npm run build
-      - run:
-          name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/angular-google-charts/dist/angular-google-charts/.npmrc
-      - run:
-          name: Publish to npm
-          command: cd dist/angular-google-charts && npm publish
+  # Will have to come back to this
+  # deploy:
+  #   working_directory: ~/angular-google-charts
+  #   docker:
+  #     - image: node:16.10
+  #   steps:
+  #     - checkout
+  #     - restore_cache:
+  #         keys:
+  #           - node-{{ checksum "package-lock.json" }}
+  #     - run:
+  #         name: Build
+  #         command: npm run build
+  #     - run:
+  #         name: Authenticate with registry
+  #         command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/angular-google-charts/dist/angular-google-charts/.npmrc
+  #     - run:
+  #         name: Publish to npm
+  #         command: cd dist/angular-google-charts && npm publish
 
 workflows:
   test-build-deploy:
@@ -67,11 +70,11 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - deploy:
-          requires:
-            - test
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^^v[0-9]\.[0-9]\.[0-9]$/
+      # - deploy:
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #         ignore: /.*/
+      #       tags:
+      #         only: /^^v[0-9]\.[0-9]\.[0-9]$/

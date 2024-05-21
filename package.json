@@ -4,11 +4,12 @@
   "version": "0.0.0",
   "private": false,
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve playground -o",
-    "build": "ng build angular-google-charts --configuration production",
-    "test": "ng test angular-google-charts --coverage",
-    "lint": "ng lint playground",
+    "ng": "npx run ng",
+    "start": "npx run ng serve playground -o",
+    "build": "npx run ng build angular-google-charts --configuration production",
+    "build:watch": "npx run ng build angular-google-charts --configuration production --watch",
+    "test": "npx run ng test angular-google-charts --coverage",
+    "lint": "npx run ng lint playground",
     "release": "standard-version"
   },
   "workspaces": [
@@ -32,20 +33,35 @@
     "bumpFiles": "libs/angular-google-charts/package.json",
     "packageFiles": "libs/angular-google-charts/package.json"
   },
-  "engines": {
-    "npm": ">=7.0.0"
-  },
   "devDependencies": {
-    "@angular/core": "^14.0.3",
-    "@angular/cli": "^14.0.3",
-    "@angular/compiler": "^14.0.3",
-    "@angular/compiler-cli": "^14.0.3",
-    "@angular/language-service": "^14.0.3",
-    "@angular-devkit/build-angular": "^14.0.3",
-    "@commitlint/cli": "^17.0.3",
-    "@commitlint/config-conventional": "^17.0.3",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1"
+    "@angular-devkit/build-angular": "^17.3.2",
+    "@angular-eslint/builder": "17.3.0",
+    "@angular-eslint/eslint-plugin": "17.3.0",
+    "@angular-eslint/eslint-plugin-template": "17.3.0",
+    "@angular-eslint/schematics": "17.3.0",
+    "@angular-eslint/template-parser": "17.3.0",
+    "@angular/cli": "^17.3.2",
+    "@angular/compiler": "^17.3.2",
+    "@angular/compiler-cli": "^17.3.2",
+    "@angular/core": "^17.3.2",
+    "@angular/language-service": "^17.3.2",
+    "@commitlint/cli": "^19.2.1",
+    "@commitlint/config-conventional": "^19.1.0",
+    "@types/eslint": "~8.56.6",
+    "@types/eslint-config-prettier": "~6.11.3",
+    "@types/lint-staged": "~13.3.0",
+    "@typescript-eslint/eslint-plugin": "7.2.0",
+    "@typescript-eslint/parser": "7.2.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-react": "^7.34.1",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5"
+  },
+  "dependencies": {
+    "ng-packagr": "^17.3.0",
+    "typescript": "5.4.3"
   }
 }
