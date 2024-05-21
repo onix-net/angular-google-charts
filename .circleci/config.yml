@@ -4,7 +4,7 @@ jobs:
   install:
     working_directory: ~/angular-google-charts
     docker:
-      - image: node:16.10
+      - image: node:20.13
     steps:
       - checkout
       - restore_cache:
@@ -21,12 +21,14 @@ jobs:
   test:
     working_directory: ~/angular-google-charts
     docker:
-      - image: node:16.10
+      - image: node:20.13
     steps:
       - checkout
       - restore_cache:
           keys:
             - node-{{ checksum "package-lock.json" }}
+      # - run: echo 'export PATH=$(npm bin):$PATH' >> $BASH_ENV
+      # - run: echo $PATH
       - run:
           name: Run tests
           command: npm run test -- --ci --coverage --reporters default --reporters jest-junit

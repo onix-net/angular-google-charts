@@ -4,12 +4,12 @@
   "version": "0.0.0",
   "private": false,
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve playground -o",
-    "build": "ng build angular-google-charts --configuration production",
-    "build:watch": "ng build angular-google-charts --configuration production --watch",
-    "test": "ng test angular-google-charts --coverage",
-    "lint": "ng lint playground",
+    "ng": "npx run ng",
+    "start": "npx run ng serve playground -o",
+    "build": "npx run ng build angular-google-charts --configuration production",
+    "build:watch": "npx run ng build angular-google-charts --configuration production --watch",
+    "test": "npx run ng test angular-google-charts --coverage",
+    "lint": "npx run ng lint playground",
     "release": "standard-version"
   },
   "workspaces": [
